@@ -36,4 +36,10 @@ class Api::RecipesController < ApplicationController
     render 'show.json.jb'
 
   end 
+
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy
+    render json: {message: "Successfully Destroyed Recipe"}
+  end
 end
