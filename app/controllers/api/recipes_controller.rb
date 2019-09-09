@@ -1,8 +1,19 @@
 class Api::RecipesController < ApplicationController
   def index
     @recipes = Recipe.all
+
+
+    search_term = params[:search]
+    if search_term
+      @recipes = @recipes.where("ingredients iLIKE ?", "%#{search_term}%" )
+    end 
+
+    @recipes = @recipes.order(:id)
+                            
+                          
     render 'index.json.jb'
   end 
+
 
   def create
     @recipe = Recipe.new(
